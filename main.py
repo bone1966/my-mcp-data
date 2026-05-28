@@ -1,12 +1,19 @@
 import csv
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server import FastMCP
 
 
-mcp = FastMCP("Sales MCP server")
+mcp_server = FastMCP("Sales MCP server")
 
 
-@mcp.tool()
+@mcp_server.respond("file://data/sales.csv")
+def get_sales() -> str:
+    """Retreive the CSV with all sales."""
+    with open("data/sales.csv", "r") as f:
+        return f.read()
+
+
+@mcp_server.tool()
 def get_sales_from_customer(customer_name: str) -> list[int]:
     """Get a list of all sales totals for a given customer."""
     sales: list[int] = []
@@ -19,4 +26,4 @@ def get_sales_from_customer(customer_name: str) -> list[int]:
     
     
 if __name__ == "__main__":
-    mcp.run()
+    mcp_server.run()
