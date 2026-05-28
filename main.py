@@ -6,7 +6,7 @@ from mcp.server import FastMCP
 mcp_server = FastMCP("Sales MCP server")
 
 
-@mcp_server.respond("file://data/sales.csv")
+@mcp_server.resource("file://data/sales.csv")
 def get_sales() -> str:
     """Retreive the CSV with all sales."""
     with open("data/sales.csv", "r") as f:
