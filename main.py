@@ -6,6 +6,13 @@ from mcp.server import FastMCP
 mcp_server = FastMCP("Sales MCP server")
 
 
+@mcp_server.prompt("Sales analysis")
+def get_sales_analysis_prompt() -> str:
+    return """Determine the total number of sales
+    done across all customers and also tell me the 
+    total amount spent by Bob."""
+    
+    
 @mcp_server.resource("file://data/sales.csv")
 def get_sales() -> str:
     """Retreive the CSV with all sales."""
